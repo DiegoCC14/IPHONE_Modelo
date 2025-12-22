@@ -2,933 +2,649 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>MultiShop - Online Shop Website Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
+  <meta charset="utf-8">
+  <title>TEC PHONE - Shop</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="Free HTML Templates" name="keywords">
+  <meta content="Free HTML Templates" name="description">
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+  <!-- Favicon -->
+  <link href="img/favicon.ico" rel="icon">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <!-- Libraries Stylesheet -->
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+  <!-- Customized Bootstrap Stylesheet -->
+  <link href="css/style.css" rel="stylesheet">
 
-    <style>
+  <style>
     /* ===== TECPHONE: paleta + look curvo (no rompe Bootstrap) ===== */
-    :root{
-    --tec-white:#FFFFFF;
-    --tec-ash:#B2B2B2;      /* gris ceniza */
-    --tec-taupe:#8B8589;    /* gris topo */
-    --tec-dark:#2F3438;     /* gris oscuro para barras */
-    --tec-ink:#111111;      /* texto principal */
+    :root {
+      --tec-white: #FFFFFF;
+      --tec-ash: #B2B2B2;
+      --tec-taupe: #8B8589;
+      --tec-dark: #2F3438;
+      --tec-ink: #111111;
     }
 
-    /* Base */
-    body{
-    background: var(--tec-white);
-    color: var(--tec-ink);
-    position: relative;
-    overflow-x: hidden;
+    body {
+      background: var(--tec-white);
+      color: var(--tec-ink);
+      position: relative;
+      overflow-x: hidden;
     }
 
-    /* Textura suave “curva” (sin imágenes) */
-    body::before{
-    content:"";
-    position: fixed;
-    inset: -40px;
-    pointer-events: none;
-    z-index: 0;
-    background:
-        radial-gradient(1200px 700px at 15% 10%, rgba(139,133,137,.10), transparent 60%),
-        radial-gradient(900px 600px at 85% 25%, rgba(178,178,178,.10), transparent 55%),
-        radial-gradient(900px 700px at 35% 90%, rgba(47,52,56,.06), transparent 60%);
-    filter: blur(.2px);
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -40px;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(139, 133, 137, .10), transparent 60%),
+        radial-gradient(900px 600px at 85% 25%, rgba(178, 178, 178, .10), transparent 55%),
+        radial-gradient(900px 700px at 35% 90%, rgba(47, 52, 56, .06), transparent 60%);
+      filter: blur(.2px);
     }
 
-    /* Mantener el contenido por encima de la textura */
-    .container-fluid, .container{
-    position: relative;
-    z-index: 1;
+    .container-fluid,
+    .container {
+      position: relative;
+      z-index: 1;
     }
 
-    /* Re-mapeo de “primary” a taupe (mantiene template) */
-    .bg-primary{ background-color: var(--tec-taupe) !important; }
-    .text-primary{ color: var(--tec-taupe) !important; }
-    .btn-primary{
-    background-color: var(--tec-taupe) !important;
-    border-color: var(--tec-taupe) !important;
-    }
-    .btn-primary:hover{
-    background-color: var(--tec-dark) !important;
-    border-color: var(--tec-dark) !important;
+    .bg-primary {
+      background-color: var(--tec-taupe) !important;
     }
 
-    /* ===== Logo TEC PHONE: menos cuadrado, más orgánico ===== */
+    .text-primary {
+      color: var(--tec-taupe) !important;
+    }
+
+    .btn-primary {
+      background-color: var(--tec-taupe) !important;
+      border-color: var(--tec-taupe) !important;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--tec-dark) !important;
+      border-color: var(--tec-dark) !important;
+    }
+
+    /* ===== Logo TEC PHONE ===== */
     .tec-brand-left,
-    .tec-brand-right{
-    display: inline-block;
-    border-radius: 16px;
-    padding-top: .15rem;
-    padding-bottom: .15rem;
-    box-shadow: 0 10px 24px rgba(0,0,0,.12);
-    }
-    .tec-brand-left{
-    background: var(--tec-dark);
-    color: var(--tec-white);
-    letter-spacing: .06em;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    }
-    .tec-brand-right{
-    background: var(--tec-ash);
-    color: var(--tec-ink);
-    letter-spacing: .08em;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
+    .tec-brand-right {
+      display: inline-block;
+      border-radius: 16px;
+      padding-top: .15rem;
+      padding-bottom: .15rem;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .12);
     }
 
-    /* ===== Barra Navbar: curvada y “flotante” ===== */
-    .container-fluid.bg-dark.mb-30{
-    background: transparent !important; /* dejamos que la barra sea la que tenga el fondo */
-    }
-    .navbar.navbar-expand-lg.bg-dark.navbar-dark{
-    background: var(--tec-dark) !important;
-    border-radius: 22px;
-    margin: 10px 0;
-    box-shadow: 0 16px 36px rgba(0,0,0,.25);
-    padding-left: 14px !important;
-    padding-right: 14px !important;
+    .tec-brand-left {
+      background: var(--tec-dark);
+      color: var(--tec-white);
+      letter-spacing: .06em;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
     }
 
-    /* Links del navbar con pills suaves */
-    .navbar-dark .navbar-nav .nav-link{
-    border-radius: 14px;
-    margin: 0 4px;
-    transition: transform .18s ease, background .18s ease;
+    .tec-brand-right {
+      background: var(--tec-ash);
+      color: var(--tec-ink);
+      letter-spacing: .08em;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
     }
+
+    /* ===== Navbar curvada ===== */
+    .container-fluid.bg-dark.mb-30 {
+      background: transparent !important;
+    }
+
+    .navbar.navbar-expand-lg.bg-dark.navbar-dark {
+      background: var(--tec-dark) !important;
+      border-radius: 22px;
+      margin: 10px 0;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, .25);
+      padding-left: 14px !important;
+      padding-right: 14px !important;
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+      border-radius: 14px;
+      margin: 0 4px;
+      transition: transform .18s ease, background .18s ease;
+    }
+
     .navbar-dark .navbar-nav .nav-link:hover,
-    .navbar-dark .navbar-nav .nav-link.active{
-    background: rgba(255,255,255,.12);
-    transform: translateY(-1px);
+    .navbar-dark .navbar-nav .nav-link.active {
+      background: rgba(255, 255, 255, .12);
+      transform: translateY(-1px);
     }
 
-    /* ===== Categories botón: pill suave ===== */
-    .tecphone-categories{
-    background: var(--tec-ash) !important;
-    border-radius: 22px;
-    box-shadow: 0 12px 28px rgba(0,0,0,.18);
-    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-    }
-    .tecphone-categories h6,
-    .tecphone-categories i{
-    color: var(--tec-ink) !important;
-    }
-    .tecphone-categories:hover{
-    background: var(--tec-taupe) !important;
-    transform: translateY(-1px);
-    box-shadow: 0 18px 40px rgba(0,0,0,.22);
-    }
-    .tecphone-categories:hover h6,
-    .tecphone-categories:hover i{
-    color: var(--tec-white) !important;
+    /* ===== Inputs redondeados ===== */
+    .form-control {
+      border-radius: 24px;
+      padding-left: 18px;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, .07);
     }
 
-    /* Dropdown vertical: que no sea “caja dura” */
-    #navbar-vertical{
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 18px 40px rgba(0,0,0,.20);
+    .input-group-text {
+      border-radius: 24px;
     }
 
-    /* ===== Inputs: redondeados premium ===== */
-    .form-control{
-    border-radius: 24px;
-    padding-left: 18px;
-    box-shadow: inset 0 2px 10px rgba(0,0,0,.07);
-    }
-    .input-group-text{
-    border-radius: 24px;
+    /* ===== Cards productos ===== */
+    .product-item {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, .12);
+      transition: transform .22s ease, box-shadow .22s ease;
     }
 
-    /* ===== Cards productos: menos cuadrado ===== */
-    .product-item{
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 14px 30px rgba(0,0,0,.12);
-    transition: transform .22s ease, box-shadow .22s ease;
-    }
-    .product-item:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 20px 44px rgba(0,0,0,.16);
+    .product-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 44px rgba(0, 0, 0, .16);
     }
 
-    /* Botones cuadrados -> redondeados */
-    .btn-square{
-    border-radius: 14px !important;
+    .btn-square {
+      border-radius: 14px !important;
     }
 
-    /* Sidebar bloques */
-    .bg-light{
-    border-radius: 18px;
-    }
-    .section-title span.bg-secondary{
-    border-radius: 14px;
+    .bg-light {
+      border-radius: 18px;
     }
 
-    /* Paginación */
-    .pagination .page-link{
-    border-radius: 14px;
-    margin: 0 3px;
+    .pagination .page-link {
+      border-radius: 14px;
+      margin: 0 3px;
     }
 
-    /* Breadcrumb más suave */
-    .breadcrumb{
-    border-radius: 18px;
+    .breadcrumb {
+      border-radius: 18px;
     }
-    </style>
 
+    /* ===== Ajustes claves para móvil (aplicar "centrado" también) =====
+       1) En móvil, el template usa otra marca "MultiShop" (d-lg-none). La
+          reemplazamos por TEC PHONE y le aplicamos tus clases.
+       2) Forzamos que el contenedor de productos siempre esté centrado
+          y con ancho razonable en pantallas chicas.
+       3) Evitamos que el navbar colapsado quede "pegado" o con bordes raros.
+    */
+
+    /* Marca móvil (d-lg-none) con look TEC PHONE */
+    .tec-brand-mobile {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      text-decoration: none !important;
+    }
+
+    /* Mejoras de layout en móvil */
+    @media (max-width: 991.98px) {
+      /* Navbar: un poco más compacto */
+      .navbar.navbar-expand-lg.bg-dark.navbar-dark {
+        border-radius: 18px;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+      }
+
+      /* Menú colapsado: separar un poco */
+      #navbarCollapse {
+        margin-top: 10px;
+      }
+
+      /* Centrado real del grid de productos */
+      .shop-products-wrap {
+        max-width: 980px; /* limita ancho si el contenedor crece */
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Asegura que el row no quede "full-left" por padding/cols raras */
+      .shop-products-row {
+        justify-content: center !important;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      /* En extra chico, que no se vea tan ancho el contenido */
+      .row.px-xl-5 {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+      }
+
+      /* Cards con un poquito más de aire */
+      .product-item {
+        border-radius: 18px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <!-- Topbar Start -->
-    <div class="container-fluid">
-        <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
-            <div class="col-lg-4">
-                <a href="" class="text-decoration-none tec-brand">
-                    <span class="h1 text-uppercase tec-brand-left px-2">TEC</span>
-                    <span class="h1 text-uppercase tec-brand-right px-2 ml-n1">PHONE</span>
+  <!-- Topbar Start -->
+  <div class="container-fluid">
+    <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
+      <div class="col-lg-4">
+        <a href="" class="text-decoration-none tec-brand">
+          <span class="h1 text-uppercase tec-brand-left px-2">TEC</span>
+          <span class="h1 text-uppercase tec-brand-right px-2 ml-n1">PHONE</span>
+        </a>
+      </div>
+      <div class="col-lg-4 col-6 text-left">
+        <form action="">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Busca tu Iphone AQUI!!!">
+            <div class="input-group-append">
+              <span class="input-group-text bg-transparent text-primary">
+                <i class="fa fa-search"></i>
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-4 col-6 text-right">
+        <p class="m-0">Customer Service</p>
+        <h5 class="m-0">+54 9 2613 44-7723</h5>
+      </div>
+    </div>
+  </div>
+  <!-- Topbar End -->
+
+
+  <!-- Navbar Start -->
+  <div class="container-fluid bg-dark mb-30">
+    <div class="row px-xl-5">
+      <!-- (si querés borrar categories también, podés eliminar este col-lg-3 entero) -->
+      <div class="col-lg-3 d-none d-lg-block">
+        <a class="btn d-flex align-items-center justify-content-between tecphone-categories w-100" data-toggle="collapse"
+          href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
+          <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Categories</h6>
+          <i class="fa fa-angle-down text-dark"></i>
+        </a>
+        <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light"
+          id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
+          <div class="navbar-nav w-100">
+            <a href="" class="nav-item nav-link">Shirts</a>
+            <a href="" class="nav-item nav-link">Jeans</a>
+            <a href="" class="nav-item nav-link">Shoes</a>
+          </div>
+        </nav>
+      </div>
+
+      <div class="col-lg-9">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
+
+          <!-- Marca móvil (ANTES era MultiShop) -->
+          <a href="index.html" class="tec-brand-mobile d-block d-lg-none">
+            <span class="h1 text-uppercase tec-brand-left px-2 mb-0">TEC</span>
+            <span class="h1 text-uppercase tec-brand-right px-2 ml-n1 mb-0">PHONE</span>
+          </a>
+
+          <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+            <div class="navbar-nav mr-auto py-0">
+              <a href="index.html" class="nav-item nav-link">Inicio</a>
+              <a href="shop.html" class="nav-item nav-link active">Tienda</a>
+              <a href="detail.html" class="nav-item nav-link">Ofertas!</a>
+              <a href="contact.html" class="nav-item nav-link">Contact</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+  <!-- Navbar End -->
+
+  <!-- Breadcrumb Start -->
+  <div class="container-fluid">
+    <div class="row px-xl-5">
+      <div class="col-12">
+        <nav class="breadcrumb bg-light mb-30">
+          <a class="breadcrumb-item text-dark" href="#">Home</a>
+          <a class="breadcrumb-item text-dark" href="#">Shop</a>
+          <span class="breadcrumb-item active">Shop List</span>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <!-- Breadcrumb End -->
+
+  <!-- Tecphone Carousel Start -->
+  <div class="container-fluid mb-30">
+    <div class="row px-xl-5">
+      <div class="col-12">
+        <div class="tec-carousel-wrap">
+          <div id="tecphoneCarousel" class="carousel slide" data-ride="carousel" data-interval="5500"
+            data-pause="hover">
+
+            <ol class="carousel-indicators">
+              <li data-target="#tecphoneCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#tecphoneCarousel" data-slide-to="1"></li>
+              <li data-target="#tecphoneCarousel" data-slide-to="2"></li>
+              <li data-target="#tecphoneCarousel" data-slide-to="3"></li>
+              <li data-target="#tecphoneCarousel" data-slide-to="4"></li>
+              <li data-target="#tecphoneCarousel" data-slide-to="5"></li>
+              <li data-target="#tecphoneCarousel" data-slide-to="6"></li>
+            </ol>
+
+            <div class="carousel-inner" role="listbox">
+
+              <div class="carousel-item active" style="background-color:#000000;">
+                <a href="https://www.maconline.com/landing/iphone-17-pro" target="_blank" rel="noopener">
+                  <img class="d-block w-100" alt="iPhone 17 Pro interior"
+                    src="https://d1aqw5mz0wngqe.cloudfront.net/images/spree/banners/2518/images/original/portada-interior-iPh17Pro-1757596685.png?1757596685">
                 </a>
-            </div>
-            <div class="col-lg-4 col-6 text-left">
-                <form action="">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Busca tu Iphone AQUI!!!">
-                        <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
-                                <i class="fa fa-search"></i>
-                            </span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-lg-4 col-6 text-right">
-                <p class="m-0">Customer Service</p>
-                <h5 class="m-0">+54 9 2613 44-7723</h5>
-            </div>
-        </div>
-    </div>
-    <!-- Topbar End -->
+              </div>
 
-
-    <!-- Navbar Start -->
-    <div class="container-fluid bg-dark mb-30">
-        <div class="row px-xl-5">
-            <div class="col-lg-3 d-none d-lg-block">
-                <a class="btn d-flex align-items-center justify-content-between tecphone-categories w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
-                    <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Categories</h6>
-                    <i class="fa fa-angle-down text-dark"></i>
+              <div class="carousel-item" style="background-color:#F5F5F5;">
+                <a href="https://www.maconline.com/landing/iphone-air" target="_blank" rel="noopener">
+                  <img class="d-block w-100" alt="iPhone Air Interior"
+                    src="https://d1aqw5mz0wngqe.cloudfront.net/images/spree/banners/2519/images/original/portada-interior-iPhAir-1757596737-1757596835-1757596939.png?1757596939">
                 </a>
-                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
-                    <div class="navbar-nav w-100">
-                        <div class="nav-item dropdown dropright">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dresses <i class="fa fa-angle-right float-right mt-1"></i></a>
-                            <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                <a href="" class="dropdown-item">Men's Dresses</a>
-                                <a href="" class="dropdown-item">Women's Dresses</a>
-                                <a href="" class="dropdown-item">Baby's Dresses</a>
-                            </div>
-                        </div>
-                        <a href="" class="nav-item nav-link">Shirts</a>
-                        <a href="" class="nav-item nav-link">Jeans</a>
-                        <a href="" class="nav-item nav-link">Swimwear</a>
-                        <a href="" class="nav-item nav-link">Sleepwear</a>
-                        <a href="" class="nav-item nav-link">Sportswear</a>
-                        <a href="" class="nav-item nav-link">Jumpsuits</a>
-                        <a href="" class="nav-item nav-link">Blazers</a>
-                        <a href="" class="nav-item nav-link">Jackets</a>
-                        <a href="" class="nav-item nav-link">Shoes</a>
-                    </div>
-                </nav>
-            </div>
-            <div class="col-lg-9">
-                <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
-                    <a href="" class="text-decoration-none d-block d-lg-none">
-                        <span class="h1 text-uppercase text-dark bg-light px-2">Multi</span>
-                        <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
-                    </a>
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
-                            <a href="index.html" class="nav-item nav-link">Inicio</a>
-                            <a href="shop.html" class="nav-item nav-link active">Tienda</a>
-                            <a href="detail.html" class="nav-item nav-link">Ofertas!</a>
-                            <div class="nav-item dropdown">
-                                <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                    <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                    <a href="checkout.html" class="dropdown-item">Checkout</a>
-                                </div>
-                            </div>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </div>
-    <!-- Navbar End -->
+              </div>
 
+              <div class="carousel-item" style="background-color:#F5F5F5;">
+                <a href="https://www.maconline.com/landing/iphone-17" target="_blank" rel="noopener">
+                  <img class="d-block w-100" alt="iPhone 17 Interior"
+                    src="https://d1aqw5mz0wngqe.cloudfront.net/images/spree/banners/2520/images/original/portada-interior-iPh17-1757596783-1757596859-1757596950.png?1757596950">
+                </a>
+              </div>
 
+              <div class="carousel-item" style="background-color:#F5F5F5;">
+                <a href="https://www.maconline.com/landing/iphone-16e" target="_blank" rel="noopener">
+                  <img class="d-block w-100" alt="iPhone 16e interior"
+                    src="https://d1aqw5mz0wngqe.cloudfront.net/images/spree/banners/2343/images/original/BANNER-INTERNO-iPhone16e-1741779846-1741780130.png?1741780130">
+                </a>
+              </div>
 
-    <!-- Breadcrumb Start -->
-    <div class="container-fluid">
-        <div class="row px-xl-5">
-            <div class="col-12">
-                <nav class="breadcrumb bg-light mb-30">
-                    <a class="breadcrumb-item text-dark" href="#">Home</a>
-                    <a class="breadcrumb-item text-dark" href="#">Shop</a>
-                    <span class="breadcrumb-item active">Shop List</span>
-                </nav>
-            </div>
-        </div>
-    </div>
-    <!-- Breadcrumb End -->
-    <!--
-    <div class="container-fluid tec-flyer mb-30">
-        <div class="row px-xl-5">
-            <div class="col-12">
-            <div class="tec-flyer-card">
-                <div class="tec-flyer-inner">
-                <div class="text-center py-4 px-3">
-                    <div class="tec-kicker">OFERTA</div>
-                    <div class="tec-sub">IPHONE</div>
-                    <div class="tec-title">17 PRO MAX</div>
-                    <div class="tec-meta">256GB</div>
-                    
-                    <div class="tec-product-wrap my-4">
-                    <img class="img-fluid" style="max-height:260px;" src="img/product-1.jpg" alt="Producto">
-                    </div>
+              <div class="carousel-item" style="background-color:#000000;">
+                <a href="https://www.maconline.com/landing/iphone-16-pro" target="_blank" rel="noopener">
+                  <img class="d-block w-100" alt="iPhone 16 Pro"
+                    src="https://d1aqw5mz0wngqe.cloudfront.net/images/spree/banners/2260/images/original/INT_iPhone-16-Pro-1729525193.png?1729525193">
+                </a>
+              </div>
 
-                    <div class="tec-small">
-                    NUEVOS EN CAJA SELLADA · 1 AÑO DE GARANTÍA APPLE<br>
-                    CONSULTAR DISPONIBILIDAD DE COLORES
-                    </div>
+              <div class="carousel-item" style="background-color:#FFFFFF;">
+                <a href="https://www.maconline.com/landing/iphone-16" target="_blank" rel="noopener">
+                  <img class="d-block w-100" alt="iPhone 16"
+                    src="https://d1aqw5mz0wngqe.cloudfront.net/images/spree/banners/2259/images/original/INT_iPhone-16-1729525138.png?1729525138">
+                </a>
+              </div>
 
-                    <div class="tec-price mt-3">1440 USD</div>
-                </div>
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>
-    -->
-    <!-- Tecphone Carousel Start -->
-<div class="container-fluid mb-30">
-  <div class="row px-xl-5">
-    <div class="col-12">
-      <div class="tec-carousel-wrap">
-        <div id="tecphoneCarousel" class="carousel slide" data-ride="carousel" data-interval="5500" data-pause="hover">
+              <div class="carousel-item" style="background-color:#FFFFFF;">
+                <a href="https://www.maconline.com/landing/iphone-15" target="_blank" rel="noopener">
+                  <img class="d-block w-100" alt="iPhone 15"
+                    src="https://d1aqw5mz0wngqe.cloudfront.net/images/spree/banners/1917/images/original/INT15-1695222539.png?1695222539">
+                </a>
+              </div>
 
-          <!-- Indicators -->
-          <ol class="carousel-indicators">
-            <li data-target="#tecphoneCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#tecphoneCarousel" data-slide-to="1"></li>
-            <li data-target="#tecphoneCarousel" data-slide-to="2"></li>
-            <li data-target="#tecphoneCarousel" data-slide-to="3"></li>
-            <li data-target="#tecphoneCarousel" data-slide-to="4"></li>
-            <li data-target="#tecphoneCarousel" data-slide-to="5"></li>
-            <li data-target="#tecphoneCarousel" data-slide-to="6"></li>
-          </ol>
-
-          <!-- Slides -->
-          <div class="carousel-inner" role="listbox">
-
-            <div class="carousel-item active" style="background-color:#000000;">
-              <a href="https://www.maconline.com/landing/iphone-17-pro" target="_blank" rel="noopener">
-                <img class="d-block w-100" alt="iPhone 17 Pro interior"
-                     src="https://d1aqw5mz0wngqe.cloudfront.net/images/spree/banners/2518/images/original/portada-interior-iPh17Pro-1757596685.png?1757596685">
-              </a>
             </div>
 
-            <div class="carousel-item" style="background-color:#F5F5F5;">
-              <a href="https://www.maconline.com/landing/iphone-air" target="_blank" rel="noopener">
-                <img class="d-block w-100" alt="iPhone Air Interior"
-                     src="https://d1aqw5mz0wngqe.cloudfront.net/images/spree/banners/2519/images/original/portada-interior-iPhAir-1757596737-1757596835-1757596939.png?1757596939">
-              </a>
-            </div>
+            <a class="carousel-control-prev" href="#tecphoneCarousel" role="button" data-slide="prev"
+              aria-label="Previous">
+              <span class="tec-carousel-control" aria-hidden="true">
+                <i class="fa fa-angle-left"></i>
+              </span>
+            </a>
 
-            <div class="carousel-item" style="background-color:#F5F5F5;">
-              <a href="https://www.maconline.com/landing/iphone-17" target="_blank" rel="noopener">
-                <img class="d-block w-100" alt="iPhone 17 Interior"
-                     src="https://d1aqw5mz0wngqe.cloudfront.net/images/spree/banners/2520/images/original/portada-interior-iPh17-1757596783-1757596859-1757596950.png?1757596950">
-              </a>
-            </div>
-
-            <div class="carousel-item" style="background-color:#F5F5F5;">
-              <a href="https://www.maconline.com/landing/iphone-16e" target="_blank" rel="noopener">
-                <img class="d-block w-100" alt="iPhone 16e interior"
-                     src="https://d1aqw5mz0wngqe.cloudfront.net/images/spree/banners/2343/images/original/BANNER-INTERNO-iPhone16e-1741779846-1741780130.png?1741780130">
-              </a>
-            </div>
-
-            <div class="carousel-item" style="background-color:#000000;">
-              <a href="https://www.maconline.com/landing/iphone-16-pro" target="_blank" rel="noopener">
-                <img class="d-block w-100" alt="iPhone 16 Pro"
-                     src="https://d1aqw5mz0wngqe.cloudfront.net/images/spree/banners/2260/images/original/INT_iPhone-16-Pro-1729525193.png?1729525193">
-              </a>
-            </div>
-
-            <div class="carousel-item" style="background-color:#FFFFFF;">
-              <a href="https://www.maconline.com/landing/iphone-16" target="_blank" rel="noopener">
-                <img class="d-block w-100" alt="iPhone 16"
-                     src="https://d1aqw5mz0wngqe.cloudfront.net/images/spree/banners/2259/images/original/INT_iPhone-16-1729525138.png?1729525138">
-              </a>
-            </div>
-
-            <div class="carousel-item" style="background-color:#FFFFFF;">
-              <a href="https://www.maconline.com/landing/iphone-15" target="_blank" rel="noopener">
-                <img class="d-block w-100" alt="iPhone 15"
-                     src="https://d1aqw5mz0wngqe.cloudfront.net/images/spree/banners/1917/images/original/INT15-1695222539.png?1695222539">
-              </a>
-            </div>
+            <a class="carousel-control-next" href="#tecphoneCarousel" role="button" data-slide="next" aria-label="Next">
+              <span class="tec-carousel-control" aria-hidden="true">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
 
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Tecphone Carousel End -->
 
-          <!-- Controls -->
-          <a class="carousel-control-prev" href="#tecphoneCarousel" role="button" data-slide="prev" aria-label="Previous">
-            <span class="tec-carousel-control" aria-hidden="true">
-              <i class="fa fa-angle-left"></i>
-            </span>
-          </a>
 
-          <a class="carousel-control-next" href="#tecphoneCarousel" role="button" data-slide="next" aria-label="Next">
-            <span class="tec-carousel-control" aria-hidden="true">
-              <i class="fa fa-angle-right"></i>
-            </span>
-          </a>
+  <!-- Shop Start (SIN sidebar + centrado también en móvil) -->
+  <div class="container-fluid">
+    <div class="row px-xl-5 justify-content-center">
+      <div class="col-12 shop-products-wrap">
+
+        <!-- Toolbar -->
+        <div class="row pb-3">
+          <div class="col-12 pb-1">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+              <div>
+                <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
+                <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
+              </div>
+              <div class="ml-2">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#">Latest</a>
+                    <a class="dropdown-item" href="#">Popularity</a>
+                    <a class="dropdown-item" href="#">Best Rating</a>
+                  </div>
+                </div>
+                <div class="btn-group ml-2">
+                  <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#">10</a>
+                    <a class="dropdown-item" href="#">20</a>
+                    <a class="dropdown-item" href="#">30</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products (centrado) -->
+        <div class="row pb-3 justify-content-center shop-products-row">
+
+          <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+            <div class="product-item bg-light mb-4">
+              <div class="product-img position-relative overflow-hidden">
+                <img class="img-fluid w-100" src="img/17_pro_max.jpg" alt="">
+                <div class="product-action">
+                  <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                  <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                  <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                  <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                </div>
+              </div>
+              <div class="text-center py-4">
+                <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                <div class="d-flex align-items-center justify-content-center mt-2">
+                  <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                </div>
+                <div class="d-flex align-items-center justify-content-center mb-1">
+                  <small class="fa fa-star text-primary mr-1"></small>
+                  <small class="fa fa-star text-primary mr-1"></small>
+                  <small class="fa fa-star text-primary mr-1"></small>
+                  <small class="fa fa-star text-primary mr-1"></small>
+                  <small class="fa fa-star text-primary mr-1"></small>
+                  <small>(99)</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+            <div class="product-item bg-light mb-4">
+              <div class="product-img position-relative overflow-hidden">
+                <img class="img-fluid w-100" src="img/phone_16.png" alt="">
+                <div class="product-action">
+                  <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                  <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                  <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                  <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                </div>
+              </div>
+              <div class="text-center py-4">
+                <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                <div class="d-flex align-items-center justify-content-center mt-2">
+                  <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                </div>
+                <div class="d-flex align-items-center justify-content-center mb-1">
+                  <small class="fa fa-star text-primary mr-1"></small>
+                  <small class="fa fa-star text-primary mr-1"></small>
+                  <small class="fa fa-star text-primary mr-1"></small>
+                  <small class="fa fa-star text-primary mr-1"></small>
+                  <small class="fa fa-star-half-alt text-primary mr-1"></small>
+                  <small>(99)</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+            <div class="product-item bg-light mb-4">
+              <div class="product-img position-relative overflow-hidden">
+                <img class="img-fluid w-100" src="img/Silver_phone.jpg" alt="">
+                <div class="product-action">
+                  <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                  <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                  <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                  <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                </div>
+              </div>
+              <div class="text-center py-4">
+                <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                <div class="d-flex align-items-center justify-content-center mt-2">
+                  <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                </div>
+                <div class="d-flex align-items-center justify-content-center mb-1">
+                  <small class="fa fa-star text-primary mr-1"></small>
+                  <small class="fa fa-star text-primary mr-1"></small>
+                  <small class="fa fa-star text-primary mr-1"></small>
+                  <small class="fa fa-star-half-alt text-primary mr-1"></small>
+                  <small class="far fa-star text-primary mr-1"></small>
+                  <small>(99)</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div class="col-12">
+            <nav>
+              <ul class="pagination justify-content-center">
+                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              </ul>
+            </nav>
+          </div>
 
         </div>
       </div>
     </div>
   </div>
-</div>
-<!-- Tecphone Carousel End -->
+  <!-- Shop End -->
 
-  
-    <!-- Shop Start -->
-    <div class="container-fluid">
-        <div class="row px-xl-5">
-            <!-- Shop Sidebar Start -->
-            <div class="col-lg-3 col-md-4">
-                <!-- Price Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span></h5>
-                <div class="bg-light p-4 mb-30">
-                    <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="price-all">
-                            <label class="custom-control-label" for="price-all">All Price</label>
-                            <span class="badge border font-weight-normal">1000</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-1">
-                            <label class="custom-control-label" for="price-1">$0 - $100</label>
-                            <span class="badge border font-weight-normal">150</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-2">
-                            <label class="custom-control-label" for="price-2">$100 - $200</label>
-                            <span class="badge border font-weight-normal">295</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-3">
-                            <label class="custom-control-label" for="price-3">$200 - $300</label>
-                            <span class="badge border font-weight-normal">246</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-4">
-                            <label class="custom-control-label" for="price-4">$300 - $400</label>
-                            <span class="badge border font-weight-normal">145</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="price-5">
-                            <label class="custom-control-label" for="price-5">$400 - $500</label>
-                            <span class="badge border font-weight-normal">168</span>
-                        </div>
-                    </form>
-                </div>
-                <!-- Price End -->
-                
-                <!-- Color Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by color</span></h5>
-                <div class="bg-light p-4 mb-30">
-                    <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="color-all">
-                            <label class="custom-control-label" for="price-all">All Color</label>
-                            <span class="badge border font-weight-normal">1000</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="color-1">
-                            <label class="custom-control-label" for="color-1">Black</label>
-                            <span class="badge border font-weight-normal">150</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="color-2">
-                            <label class="custom-control-label" for="color-2">White</label>
-                            <span class="badge border font-weight-normal">295</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="color-3">
-                            <label class="custom-control-label" for="color-3">Red</label>
-                            <span class="badge border font-weight-normal">246</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="color-4">
-                            <label class="custom-control-label" for="color-4">Blue</label>
-                            <span class="badge border font-weight-normal">145</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="color-5">
-                            <label class="custom-control-label" for="color-5">Green</label>
-                            <span class="badge border font-weight-normal">168</span>
-                        </div>
-                    </form>
-                </div>
-                <!-- Color End -->
 
-                <!-- Size Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by size</span></h5>
-                <div class="bg-light p-4 mb-30">
-                    <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="size-all">
-                            <label class="custom-control-label" for="size-all">All Size</label>
-                            <span class="badge border font-weight-normal">1000</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-1">
-                            <label class="custom-control-label" for="size-1">XS</label>
-                            <span class="badge border font-weight-normal">150</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-2">
-                            <label class="custom-control-label" for="size-2">S</label>
-                            <span class="badge border font-weight-normal">295</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-3">
-                            <label class="custom-control-label" for="size-3">M</label>
-                            <span class="badge border font-weight-normal">246</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-4">
-                            <label class="custom-control-label" for="size-4">L</label>
-                            <span class="badge border font-weight-normal">145</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="size-5">
-                            <label class="custom-control-label" for="size-5">XL</label>
-                            <span class="badge border font-weight-normal">168</span>
-                        </div>
-                    </form>
-                </div>
-                <!-- Size End -->
+  <!-- Footer Start -->
+  <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
+    <div class="row px-xl-5 pt-5">
+      <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+        <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
+        <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor. Rebum
+          tempor no vero est magna amet no</p>
+        <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+        <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+        <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+      </div>
+      <div class="col-lg-8 col-md-12">
+        <div class="row">
+          <div class="col-md-4 mb-5">
+            <h5 class="text-secondary text-uppercase mb-4">Quick Shop</h5>
+            <div class="d-flex flex-column justify-content-start">
+              <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
+              <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+              <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
+              <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+              <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+              <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
             </div>
-            <!-- Shop Sidebar End -->
-
-
-            <!-- Shop Product Start -->
-            <div class="col-lg-9 col-md-8">
-                <div class="row pb-3">
-                    <div class="col-12 pb-1">
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div>
-                                <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
-                                <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
-                            </div>
-                            <div class="ml-2">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">Latest</a>
-                                        <a class="dropdown-item" href="#">Popularity</a>
-                                        <a class="dropdown-item" href="#">Best Rating</a>
-                                    </div>
-                                </div>
-                                <div class="btn-group ml-2">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">10</a>
-                                        <a class="dropdown-item" href="#">20</a>
-                                        <a class="dropdown-item" href="#">30</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                        <div class="product-item bg-light mb-4">
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/product-1.jpg" alt="">
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small>(99)</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                        <div class="product-item bg-light mb-4">
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/product-2.jpg" alt="">
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                                    <small>(99)</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                        <div class="product-item bg-light mb-4">
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/product-3.jpg" alt="">
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                                    <small class="far fa-star text-primary mr-1"></small>
-                                    <small>(99)</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                        <div class="product-item bg-light mb-4">
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/product-4.jpg" alt="">
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="far fa-star text-primary mr-1"></small>
-                                    <small class="far fa-star text-primary mr-1"></small>
-                                    <small>(99)</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                        <div class="product-item bg-light mb-4">
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/product-5.jpg" alt="">
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small>(99)</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                        <div class="product-item bg-light mb-4">
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/product-6.jpg" alt="">
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                                    <small>(99)</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                        <div class="product-item bg-light mb-4">
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/product-7.jpg" alt="">
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                                    <small class="far fa-star text-primary mr-1"></small>
-                                    <small>(99)</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                        <div class="product-item bg-light mb-4">
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/product-8.jpg" alt="">
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="far fa-star text-primary mr-1"></small>
-                                    <small class="far fa-star text-primary mr-1"></small>
-                                    <small>(99)</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                        <div class="product-item bg-light mb-4">
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/product-9.jpg" alt="">
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="far fa-star text-primary mr-1"></small>
-                                    <small class="far fa-star text-primary mr-1"></small>
-                                    <small>(99)</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <nav>
-                          <ul class="pagination justify-content-center">
-                            <li class="page-item disabled"><a class="page-link" href="#">Previous</span></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                          </ul>
-                        </nav>
-                    </div>
-                </div>
+          </div>
+          <div class="col-md-4 mb-5">
+            <h5 class="text-secondary text-uppercase mb-4">My Account</h5>
+            <div class="d-flex flex-column justify-content-start">
+              <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
+              <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+              <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
+              <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+              <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+              <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
             </div>
-            <!-- Shop Product End -->
+          </div>
+          <div class="col-md-4 mb-5">
+            <h5 class="text-secondary text-uppercase mb-4">Newsletter</h5>
+            <p>Duo stet tempor ipsum sit amet magna ipsum tempor est</p>
+            <form action="">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Your Email Address">
+                <div class="input-group-append">
+                  <button class="btn btn-primary">Sign Up</button>
+                </div>
+              </div>
+            </form>
+            <h6 class="text-secondary text-uppercase mt-4 mb-3">Follow Us</h6>
+            <div class="d-flex">
+              <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+              <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+              <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a class="btn btn-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- Shop End -->
-
-
-    <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
-        <div class="row px-xl-5 pt-5">
-            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-                <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
-                <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor. Rebum tempor no vero est magna amet no</p>
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
-            </div>
-            <div class="col-lg-8 col-md-12">
-                <div class="row">
-                    <div class="col-md-4 mb-5">
-                        <h5 class="text-secondary text-uppercase mb-4">Quick Shop</h5>
-                        <div class="d-flex flex-column justify-content-start">
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
-                            <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-5">
-                        <h5 class="text-secondary text-uppercase mb-4">My Account</h5>
-                        <div class="d-flex flex-column justify-content-start">
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
-                            <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-5">
-                        <h5 class="text-secondary text-uppercase mb-4">Newsletter</h5>
-                        <p>Duo stet tempor ipsum sit amet magna ipsum tempor est</p>
-                        <form action="">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Your Email Address">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary">Sign Up</button>
-                                </div>
-                            </div>
-                        </form>
-                        <h6 class="text-secondary text-uppercase mt-4 mb-3">Follow Us</h6>
-                        <div class="d-flex">
-                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn btn-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
-            <div class="col-md-6 px-xl-0">
-                <p class="mb-md-0 text-center text-md-left text-secondary">
-                    &copy; <a class="text-primary" href="#">Domain</a>. All Rights Reserved. Designed
-                    by
-                    <a class="text-primary" href="https://htmlcodex.com">HTML Codex</a>
-                </p>
-            </div>
-            <div class="col-md-6 px-xl-0 text-center text-md-right">
-                <img class="img-fluid" src="img/payments.png" alt="">
-            </div>
-        </div>
+    <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
+      <div class="col-md-6 px-xl-0">
+        <p class="mb-md-0 text-center text-md-left text-secondary">
+          &copy; <a class="text-primary" href="#">Domain</a>. All Rights Reserved. Designed
+          by
+          <a class="text-primary" href="https://htmlcodex.com">HTML Codex</a>
+        </p>
+      </div>
+      <div class="col-md-6 px-xl-0 text-center text-md-right">
+        <img class="img-fluid" src="img/payments.png" alt="">
+      </div>
     </div>
-    <!-- Footer End -->
+  </div>
+  <!-- Footer End -->
 
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+  <!-- Back to Top -->
+  <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
+  <!-- JavaScript Libraries -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <!-- Contact Javascript File -->
+  <script src="mail/jqBootstrapValidation.min.js"></script>
+  <script src="mail/contact.js"></script>
 
-    <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+  <!-- Template Javascript -->
+  <script src="js/main.js"></script>
 </body>
 
 </html>
