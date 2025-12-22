@@ -1,0 +1,360 @@
+/* =========================================================
+   TECPHONE - style.css (Bootstrap 4.4.1 via CDN + Overrides)
+   ========================================================= */
+
+/* Bootstrap base (si su proyecto ya incluye Bootstrap, borre esta línea) */
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css");
+
+/* -------------------------
+   Design Tokens / Palette
+   ------------------------- */
+:root{
+  --tec-white:#FFFFFF;
+  --tec-ash:#B2B2B2;        /* gris ceniza */
+  --tec-taupe:#8B8589;      /* gris topo */
+  --tec-dark:#2F3438;       /* gris oscuro */
+  --tec-ink:#111111;        /* texto */
+  --tec-blue:#1A73E8;       /* azul tipo Google */
+  --tec-blue-dark:#1558B0;
+
+  --radius-xl: 22px;
+  --radius-lg: 18px;
+  --radius-md: 14px;
+  --shadow-md: 0 14px 30px rgba(0,0,0,.12);
+  --shadow-lg: 0 20px 44px rgba(0,0,0,.16);
+}
+
+/* -------------------------
+   Base
+   ------------------------- */
+html{ scroll-behavior:smooth; }
+body{
+  font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  background: var(--tec-white);
+  color: var(--tec-ink);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Textura suave (curva) */
+body::before{
+  content:"";
+  position: fixed;
+  inset: -40px;
+  pointer-events:none;
+  z-index:0;
+  background:
+    radial-gradient(1200px 700px at 15% 10%, rgba(139,133,137,.10), transparent 60%),
+    radial-gradient(900px 600px at 85% 25%, rgba(178,178,178,.10), transparent 55%),
+    radial-gradient(900px 700px at 35% 90%, rgba(47,52,56,.06), transparent 60%);
+}
+
+/* Asegura contenido sobre textura */
+.container, .container-fluid{ position: relative; z-index:1; }
+
+a{ color: var(--tec-ink); }
+a:hover{ color: var(--tec-blue); text-decoration:none; }
+
+.text-primary{ color: var(--tec-taupe) !important; }
+.bg-primary{ background-color: var(--tec-taupe) !important; }
+
+/* -------------------------
+   Buttons / Inputs
+   ------------------------- */
+.btn{
+  border-radius: var(--radius-md);
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease, border-color .18s ease;
+}
+
+.btn:hover{ box-shadow: 0 12px 28px rgba(26,115,232,.25); }
+
+.btn-primary{
+  background-color: var(--tec-taupe) !important;
+  border-color: var(--tec-taupe) !important;
+  color:#fff !important;
+}
+.btn-primary:hover, .btn-primary:focus{
+  background-color: var(--tec-blue) !important;
+  border-color: var(--tec-blue) !important;
+  color:#fff !important;
+}
+
+.btn-outline-dark{
+  border-color: rgba(17,17,17,.25) !important;
+}
+.btn-outline-dark:hover, .btn-outline-dark:focus{
+  background-color: var(--tec-blue) !important;
+  border-color: var(--tec-blue) !important;
+  color:#fff !important;
+}
+
+.form-control{
+  border-radius: 24px;
+  padding-left: 18px;
+  box-shadow: inset 0 2px 10px rgba(0,0,0,.07);
+}
+.input-group-text{
+  border-radius: 24px;
+}
+
+/* “btn-square” del template: deja de ser cuadrado */
+.btn-square{
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 14px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* -------------------------
+   Brand (TEC PHONE)
+   ------------------------- */
+.tec-brand-left,
+.tec-brand-right{
+  display:inline-block;
+  border-radius: 16px;
+  padding-top: .15rem;
+  padding-bottom: .15rem;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+}
+.tec-brand-left{
+  background: var(--tec-dark);
+  color: var(--tec-white);
+  letter-spacing:.06em;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.tec-brand-right{
+  background: var(--tec-ash);
+  color: var(--tec-ink);
+  letter-spacing:.08em;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+/* -------------------------
+   Topbar "Hoja Rota" (sin bolitas)
+   - Aplique class="tec-topbar-rip" al wrapper del Topbar
+   ------------------------- */
+.tec-topbar-rip{
+  position: relative;
+  background: #fff;
+  overflow: visible;
+}
+
+/* Rasgado inferior irregular estable */
+.tec-topbar-rip::after{
+  content:"";
+  position:absolute;
+  left:0; right:0;
+  bottom:-26px;
+  height:56px;
+  background:#fff;
+  z-index:5;
+  filter: drop-shadow(0 14px 18px rgba(0,0,0,.16));
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 40%,
+    96% 55%,
+    92% 42%,
+    88% 60%,
+    84% 46%,
+    80% 66%,
+    76% 48%,
+    72% 62%,
+    68% 44%,
+    64% 64%,
+    60% 46%,
+    56% 68%,
+    52% 45%,
+    48% 62%,
+    44% 48%,
+    40% 66%,
+    36% 46%,
+    32% 62%,
+    28% 48%,
+    24% 66%,
+    20% 46%,
+    16% 60%,
+    12% 44%,
+    8% 58%,
+    4% 42%,
+    0% 52%
+  );
+}
+
+/* Empuja la navbar para que no tape el rasgado */
+.container-fluid.bg-dark.mb-30{ margin-top: 30px; }
+
+/* -------------------------
+   Navbar / Menu
+   ------------------------- */
+.container-fluid.bg-dark.mb-30{
+  background: transparent !important; /* la barra es la que lleva color */
+}
+
+.navbar.navbar-expand-lg.bg-dark.navbar-dark{
+  background: var(--tec-dark) !important;
+  border-radius: var(--radius-xl);
+  margin: 10px 0;
+  box-shadow: 0 16px 36px rgba(0,0,0,.25);
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+}
+
+.navbar-dark .navbar-nav .nav-link{
+  border-radius: 14px;
+  margin: 0 4px;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .nav-link.active{
+  background: var(--tec-blue) !important;
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+
+/* Dropdown menus */
+.dropdown-menu{
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(0,0,0,.18);
+  border: 0 !important;
+}
+.dropdown-item:hover{
+  background: rgba(26,115,232,.10);
+  color: var(--tec-ink);
+}
+
+/* -------------------------
+   Categories button / Vertical nav
+   ------------------------- */
+.tecphone-categories{
+  background: var(--tec-ash) !important;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 12px 28px rgba(0,0,0,.18);
+}
+
+.tecphone-categories h6,
+.tecphone-categories i{ color: var(--tec-ink) !important; }
+
+.tecphone-categories:hover{
+  background: var(--tec-blue) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 18px 40px rgba(0,0,0,.22);
+}
+
+.tecphone-categories:hover h6,
+.tecphone-categories:hover i{ color:#fff !important; }
+
+#navbar-vertical{
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(0,0,0,.20);
+}
+
+/* -------------------------
+   Sections / Cards / Shop
+   ------------------------- */
+.bg-light{
+  background: #F4F4F4 !important;
+  border-radius: var(--radius-lg);
+}
+
+.section-title span.bg-secondary{
+  background: #F4F4F4 !important;
+  border-radius: var(--radius-md);
+}
+
+/* Product cards */
+.product-item{
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.product-item:hover{
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Product image area */
+.product-img{
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+/* Product action hover */
+.product-action a{
+  border-radius: 14px !important;
+}
+
+/* Stars keep taupe; hover accents use blue on links/buttons */
+.fa-star.text-primary,
+.fa-star-half-alt.text-primary,
+.far.fa-star.text-primary{
+  color: var(--tec-taupe) !important;
+}
+
+/* -------------------------
+   Breadcrumb / Pagination
+   ------------------------- */
+.breadcrumb{
+  border-radius: var(--radius-lg);
+}
+
+.pagination .page-link{
+  border-radius: 14px;
+  margin: 0 3px;
+}
+.page-item.active .page-link{
+  background: var(--tec-blue) !important;
+  border-color: var(--tec-blue) !important;
+}
+
+/* -------------------------
+   Footer
+   ------------------------- */
+.footer, .container-fluid.bg-dark.text-secondary{
+  background: var(--tec-dark) !important;
+}
+.container-fluid.bg-dark.text-secondary a.text-primary{
+  color: var(--tec-blue) !important;
+}
+.container-fluid.bg-dark.text-secondary a.text-primary:hover{
+  color: #fff !important;
+}
+
+/* Social buttons in footer */
+.container-fluid.bg-dark .btn-primary.btn-square{
+  background: var(--tec-blue) !important;
+  border-color: var(--tec-blue) !important;
+}
+.container-fluid.bg-dark .btn-primary.btn-square:hover{
+  background: var(--tec-blue-dark) !important;
+  border-color: var(--tec-blue-dark) !important;
+}
+
+/* -------------------------
+   Back to top
+   ------------------------- */
+.back-to-top{
+  position: fixed;
+  display: none;
+  right: 20px;
+  bottom: 20px;
+  z-index: 999;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.22);
+}
+
+/* -------------------------
+   Minor polishing
+   ------------------------- */
+.badge{ border-radius: 12px; }
+.custom-control-label::before,
+.custom-control-label::after{ border-radius: 8px; }
