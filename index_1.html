@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TecnoPhone - Buscar Teléfonos</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Estilos para scroll suave */
+        .products-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        }
+        
+        /* Animación para nuevos productos */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.4s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Contenedor principal -->
+    <div class="max-w-md mx-auto bg-white min-h-screen">
+        <!-- Header con logo y búsqueda -->
+        <header class="sticky top-0 z-10 bg-white border-b border-gray-200 px-4 py-3 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-mobile-alt text-white text-xl"></i>
+                    </div>
+                    <h1 class="ml-2 text-xl font-bold text-gray-800">TecnoPhone</h1>
+                </div>
+                
+                <!-- Contador de carrito (opcional) -->
+                <div class="relative">
+                    <i class="fas fa-shopping-cart text-gray-600 text-xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                </div>
+            </div>
+            
+            <!-- Barra de búsqueda -->
+            <div class="relative">
+                <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input 
+                    type="text" 
+                    id="search-input"
+                    placeholder="Search for phones..." 
+                    class="w-full pl-10 pr-4 py-3 bg-gray-100 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    autocomplete="off"
+                >
+                <button id="clear-search" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Contador de resultados -->
+            <div id="results-count" class="mt-2 text-sm text-gray-500 hidden">
+                <span id="results-number">0</span> resultados encontrados
+            </div>
+        </header>
+
+        <!-- Productos -->
+        <main class="p-4">
+            <div id="products-container" class="products-grid">
+                <!-- Los productos se cargarán aquí dinámicamente -->
+            </div>
+            
+            <!-- Estado vacío -->
+            <div id="empty-state" class="text-center py-10">
+                <div class="text-gray-300 text-5xl mb-4">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-500 mb-2">No se encontraron productos</h3>
+                <p class="text-gray-400">Intenta con otra búsqueda</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal rápido de producto (simplificado) -->
+    <div id="quick-view-modal" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl w-full max-w-sm max-h-[90vh] overflow-hidden">
+            <!-- Encabezado del modal -->
+            <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="font-bold text-lg">Detalles</h3>
+                <button id="close-quick-view" class="text-gray-500 hover:text-gray-800">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Contenido del modal -->
+            <div class="p-4">
+                <div id="quick-view-image" class="w-full h-48 bg-gray-200 rounded-xl mb-4 flex items-center justify-center">
+                    <i class="fas fa-mobile-alt text-gray-400 text-5xl"></i>
+                </div>
+                
+                <h2 id="quick-view-name" class="text-xl font-bold mb-2"></h2>
+                <div class="flex items-center mb-3">
+                    <div class="flex text-amber-500">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="text-gray-500 text-sm ml-2">4.5 (128)</span>
+                </div>
+                
+                <div class="mb-4">
+                    <span id="quick-view-price" class="text-2xl font-bold text-blue-600"></span>
+                    <span id="quick-view-original-price" class="text-gray-500 line-through ml-2"></span>
+                </div>
+                
+                <p id="quick-view-description" class="text-gray-600 mb-6"></p>
+                
+                <button id="add-to-cart-btn" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors">
+                    Agregar al carrito
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos de productos
+        const products = [
+            {
+                id: 1,
+                name: "iPhone 15 Pro Max",
+                price: "$19.99",
+                originalPrice: "$24.99",
+                description: "The ultimate iPhone with advanced camera system, powerful A17 Pro chip, and all-day battery life.",
+                imageColor: "bg-gradient-to-br from-gray-800 to-gray-900",
+                icon: "fab fa-apple",
+                brand: "Apple",
+                category: "Smartphone",
+                specs: {
+                    display: "6.7\" Super Retina XDR",
+                    storage: "256GB",
+                    camera: "48MP Main",
+                    battery: "All day battery life"
+                },
+                badge: "new",
+                rating: 4.5,
+                reviews: 128
+            },
+            {
+                id: 2,
+                name: "Samsung Galaxy Z Fold 4",
+                price: "$19.99",
+                originalPrice: "$29.99",
+                description: "Unfold your world with this innovative foldable smartphone featuring a large flexible display.",
+                imageColor: "bg-gradient-to-br from-blue-800 to-purple-800",
+                icon: "fab fa-android",
+                brand: "Samsung",
+                category: "Foldable",
+                specs: {
+                    display: "7.6\" Foldable Dynamic AMOLED",
+                    storage: "512GB",
+                    camera: "50MP Wide",
+                    battery: "4400mAh"
+                },
+                badge: "discount",
+                rating: 4.3,
+                reviews: 96
+            },
+            {
+                id: 3,
+                name: "Google Pixel 8 Pro",
+                price: "$17.99",
+                originalPrice: "$22.99",
+                description: "Powered by Google AI for smarter photos, calls, and more. The best of Google in a phone.",
+                imageColor: "bg-gradient-to-br from-green-600 to-blue-600",
+                icon: "fab fa-google",
+                brand: "Google",
+                category: "Smartphone",
+                specs: {
+                    display: "6.7\" OLED",
+                    storage: "128GB",
+                    camera: "50MP Main",
+                    battery: "5050mAh"
+                },
+                badge: "new",
+                rating: 4.7,
+                reviews: 201
+            },
+            {
+                id: 4,
+                name: "OnePlus 11",
+                price: "$15.99",
+                originalPrice: "$19.99",
+                description: "Fast and smooth performance with Hasselblad camera for professional photography.",
+                imageColor: "bg-gradient-to-br from-red-700 to-gray-900",
+                icon: "fas fa-bolt",
+                brand: "OnePlus",
+                category: "Smartphone",
+                specs: {
+                    display: "6.7\" Fluid AMOLED",
+                    storage: "256GB",
+                    camera: "50MP Hasselblad",
+                    battery: "5000mAh"
+                },
+                badge: "discount",
+                rating: 4.4,
+                reviews: 89
+            },
+            {
+                id: 5,
+                name: "Xiaomi 13 Pro",
+                price: "$14.99",
+                originalPrice: "$18.99",
+                description: "Flagship camera co-engineered with Leica for exceptional photography.",
+                imageColor: "bg-gradient-to-br from-orange-600 to-black",
+                icon: "fas fa-camera",
+                brand: "Xiaomi",
+                category: "Smartphone",
+                specs: {
+                    display: "6.73\" AMOLED",
+                    storage: "256GB",
+                    camera: "50MP Leica",
+                    battery: "4820mAh"
+                },
+                badge: "new",
+                rating: 4.2,
+                reviews: 76
+            },
+            {
+                id: 6,
+                name: "Samsung Galaxy S23 Ultra",
+                price: "$18.99",
+                originalPrice: "$23.99",
+                description: "Ultimate performance with built-in S Pen for productivity and creativity.",
+                imageColor: "bg-gradient-to-br from-purple-800 to-black",
+                icon: "fab fa-android",
+                brand: "Samsung",
+                category: "Smartphone",
+                specs: {
+                    display: "6.8\" Dynamic AMOLED",
+                    storage: "256GB",
+                    camera: "200MP Main",
+                    battery: "5000mAh"
+                },
+                badge: "discount",
+                rating: 4.6,
+                reviews: 187
+            },
+            {
+                id: 7,
+                name: "iPhone 14",
+                price: "$16.99",
+                originalPrice: "$21.99",
+                description: "Advanced dual-camera system, powerful A15 Bionic chip, and all-day battery.",
+                imageColor: "bg-gradient-to-br from-gray-700 to-gray-500",
+                icon: "fab fa-apple",
+                brand: "Apple",
+                category: "Smartphone",
+                specs: {
+                    display: "6.1\" Super Retina XDR",
+                    storage: "128GB",
+                    camera: "12MP Dual",
+                    battery: "All day battery life"
+                },
+                badge: "discount",
+                rating: 4.5,
+                reviews: 156
+            },
+            {
+                id: 8,
+                name: "Google Pixel 7a",
+                price: "$12.99",
+                originalPrice: "$16.99",
+                description: "The best of Google in a more affordable package with impressive camera capabilities.",
+                imageColor: "bg-gradient-to-br from-green-500 to-gray-700",
+                icon: "fab fa-google",
+                brand: "Google",
+                category: "Smartphone",
+                specs: {
+                    display: "6.1\" OLED",
+                    storage: "128GB",
+                    camera: "64MP Main",
+                    battery: "4385mAh"
+                },
+                badge: "new",
+                rating: 4.3,
+                reviews: 92
+            }
+        ];
+
+        // Estado de la aplicación
+        const appState = {
+            cart: [],
+            filteredProducts: [...products],
+            currentProduct: null,
+            searchQuery: ""
+        };
+
+        // Elementos del DOM
+        const DOM = {
+            productsContainer: document.getElementById('products-container'),
+            searchInput: document.getElementById('search-input'),
+            clearSearchBtn: document.getElementById('clear-search'),
+            resultsCount: document.getElementById('results-count'),
+            resultsNumber: document.getElementById('results-number'),
+            emptyState: document.getElementById('empty-state'),
+            cartCount: document.getElementById('cart-count'),
+            quickViewModal: document.getElementById('quick-view-modal'),
+            closeQuickViewBtn: document.getElementById('close-quick-view'),
+            quickViewName: document.getElementById('quick-view-name'),
+            quickViewPrice: document.getElementById('quick-view-price'),
+            quickViewOriginalPrice: document.getElementById('quick-view-original-price'),
+            quickViewDescription: document.getElementById('quick-view-description'),
+            quickViewImage: document.getElementById('quick-view-image'),
+            addToCartBtn: document.getElementById('add-to-cart-btn')
+        };
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            initApp();
+            setupEventListeners();
+        });
+
+        // Inicializar aplicación
+        function initApp() {
+            renderProducts();
+            updateCartCount();
+            
+            // Cargar carrito del localStorage si existe
+            const savedCart = localStorage.getItem('tecnoPhoneCart');
+            if (savedCart) {
+                try {
+                    appState.cart = JSON.parse(savedCart);
+                    updateCartCount();
+                } catch (e) {
+                    console.error("Error al cargar el carrito:", e);
+                }
+            }
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Buscar productos
+            DOM.searchInput.addEventListener('input', handleSearch);
+            
+            // Limpiar búsqueda
+            DOM.clearSearchBtn.addEventListener('click', clearSearch);
+            
+            // Cerrar modal
+            DOM.closeQuickViewBtn.addEventListener('click', closeQuickView);
+            
+            // Cerrar modal al hacer clic fuera
+            DOM.quickViewModal.addEventListener('click', (e) => {
+                if (e.target === DOM.quickViewModal) {
+                    closeQuickView();
+                }
+            });
+            
+            // Agregar al carrito desde modal
+            DOM.addToCartBtn.addEventListener('click', addToCartFromModal);
+        }
+
+        // Manejar búsqueda
+        function handleSearch(e) {
+            const query = e.target.value.toLowerCase().trim();
+            appState.searchQuery = query;
+            
+            // Mostrar/ocultar botón de limpiar
+            if (query.length > 0) {
+                DOM.clearSearchBtn.classList.remove('hidden');
+            } else {
+                DOM.clearSearchBtn.classList.add('hidden');
+            }
+            
+            // Filtrar productos
+            if (query.length === 0) {
+                appState.filteredProducts = [...products];
+            } else {
+                appState.filteredProducts = products.filter(product => 
+                    product.name.toLowerCase().includes(query) ||
+                    product.brand.toLowerCase().includes(query) ||
+                    product.description.toLowerCase().includes(query) ||
+                    product.category.toLowerCase().includes(query)
+                );
+            }
+            
+            // Actualizar vista
+            renderProducts();
+            updateResultsCount();
+        }
+
+        // Limpiar búsqueda
+        function clearSearch() {
+            DOM.searchInput.value = '';
+            appState.searchQuery = '';
+            DOM.clearSearchBtn.classList.add('hidden');
+            appState.filteredProducts = [...products];
+            renderProducts();
+            updateResultsCount();
+            DOM.searchInput.focus();
+        }
+
+        // Renderizar productos
+        function renderProducts() {
+            DOM.productsContainer.innerHTML = '';
+            
+            if (appState.filteredProducts.length === 0) {
+                DOM.emptyState.classList.remove('hidden');
+                return;
+            }
+            
+            DOM.emptyState.classList.add('hidden');
+            
+            appState.filteredProducts.forEach(product => {
+                const productElement = createProductCard(product);
+                DOM.productsContainer.appendChild(productElement);
+            });
+        }
+
+        // Crear tarjeta de producto
+        function createProductCard(product) {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card bg-white rounded-xl p-3 border border-gray-200 shadow-sm fade-in';
+            
+            // Badge
+            let badgeHtml = '';
+            if (product.badge === 'discount') {
+                badgeHtml = `
+                    <div class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                        -20%
+                    </div>
+                `;
+            } else if (product.badge === 'new') {
+                badgeHtml = `
+                    <div class="absolute top-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">
+                        NEW
+                    </div>
+                `;
+            }
+            
+            productCard.innerHTML = `
+                <div class="relative">
+                    ${badgeHtml}
+                    <div class="${product.imageColor} h-36 rounded-lg flex items-center justify-center mb-3">
+                        <i class="${product.icon} text-white text-4xl"></i>
+                    </div>
+                </div>
+                
+                <h3 class="font-bold text-gray-800 text-sm mb-1 truncate">${product.name}</h3>
+                
+                <div class="flex items-center mb-2">
+                    <div class="flex text-amber-500 text-xs">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="text-gray-500 text-xs ml-1">${product.rating}</span>
+                </div>
+                
+                <div class="mb-3">
+                    <span class="text-lg font-bold text-blue-600">${product.price}</span>
+                    <span class="text-gray-500 text-sm line-through ml-1">${product.originalPrice}</span>
+                </div>
+                
+                <div class="flex justify-between">
+                    <button class="view-details-btn text-blue-600 text-sm font-medium hover:text-blue-800" data-id="${product.id}">
+                        Detalles
+                    </button>
+                    <button class="add-to-cart-btn bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-200" data-id="${product.id}">
+                        <i class="fas fa-plus text-xs"></i>
+                    </button>
+                </div>
+            `;
+            
+            // Event listeners
+            const viewDetailsBtn = productCard.querySelector('.view-details-btn');
+            const addToCartBtn = productCard.querySelector('.add-to-cart-btn');
+            
+            viewDetailsBtn.addEventListener('click', () => openQuickView(product));
+            addToCartBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                addProductToCart(product.id);
+            });
+            
+            return productCard;
+        }
+
+        // Abrir vista rápida
+        function openQuickView(product) {
+            appState.currentProduct = product;
+            
+            // Actualizar información
+            DOM.quickViewName.textContent = product.name;
+            DOM.quickViewPrice.textContent = product.price;
+            DOM.quickViewOriginalPrice.textContent = product.originalPrice;
+            DOM.quickViewDescription.textContent = product.description;
+            
+            // Actualizar imagen
+            DOM.quickViewImage.className = `w-full h-48 ${product.imageColor} rounded-xl mb-4 flex items-center justify-center`;
+            DOM.quickViewImage.innerHTML = `<i class="${product.icon} text-white text-5xl"></i>`;
+            
+            // Mostrar modal
+            DOM.quickViewModal.classList.remove('hidden');
+        }
+
+        // Cerrar vista rápida
+        function closeQuickView() {
+            DOM.quickViewModal.classList.add('hidden');
+        }
+
+        // Agregar producto al carrito
+        function addProductToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            // Verificar si ya está en el carrito
+            const existingItem = appState.cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                appState.cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            
+            // Actualizar UI
+            updateCartCount();
+            
+            // Guardar en localStorage
+            saveCartToStorage();
+            
+            // Mostrar feedback visual
+            showCartFeedback();
+        }
+
+        // Agregar al carrito desde modal
+        function addToCartFromModal() {
+            if (appState.currentProduct) {
+                addProductToCart(appState.currentProduct.id);
+                closeQuickView();
+            }
+        }
+
+        // Actualizar contador del carrito
+        function updateCartCount() {
+            const totalItems = appState.cart.reduce((total, item) => total + item.quantity, 0);
+            DOM.cartCount.textContent = totalItems;
+            
+            // Animación
+            if (totalItems > 0) {
+                DOM.cartCount.classList.add('animate-pulse');
+                setTimeout(() => {
+                    DOM.cartCount.classList.remove('animate-pulse');
+                }, 300);
+            }
+        }
+
+        // Actualizar contador de resultados
+        function updateResultsCount() {
+            const count = appState.filteredProducts.length;
+            
+            if (appState.searchQuery.length > 0) {
+                DOM.resultsCount.classList.remove('hidden');
+                DOM.resultsNumber.textContent = count;
+            } else {
+                DOM.resultsCount.classList.add('hidden');
+            }
+        }
+
+        // Mostrar feedback del carrito
+        function showCartFeedback() {
+            // Crear notificación temporal
+            const feedback = document.createElement('div');
+            feedback.className = 'fixed top-20 right-4 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform';
+            feedback.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span>Producto agregado al carrito</span>
+                </div>
+            `;
+            
+            document.body.appendChild(feedback);
+            
+            // Animar entrada
+            setTimeout(() => {
+                feedback.classList.remove('translate-x-full');
+            }, 10);
+            
+            // Animar salida y eliminar
+            setTimeout(() => {
+                feedback.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(feedback);
+                }, 300);
+            }, 2000);
+        }
+
+        // Guardar carrito en localStorage
+        function saveCartToStorage() {
+            localStorage.setItem('tecnoPhoneCart', JSON.stringify(appState.cart));
+        }
+    </script>
+</body>
+</html>
