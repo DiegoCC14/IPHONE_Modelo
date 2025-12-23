@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TecnoPhone - Tienda de Teléfonos</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Estilos personalizados */
+        .product-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-item.active {
+            color: #3b82f6;
+            position: relative;
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #3b82f6;
+            border-radius: 3px;
+        }
+        
+        /* Animaciones */
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .pulse-subtle {
+            animation: pulse-subtle 2s infinite;
+        }
+        
+        /* Estilos para scroll personalizado */
+        .flash-deals-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .flash-deals-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .flash-deals-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        
+        /* Estilos para badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 9999px;
+        }
+        
+        .badge-discount {
+            background-color: #ef4444;
+            color: white;
+        }
+        
+        .badge-new {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        /* Estilos para el modal de producto */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+        
+        .modal-content {
+            transform: translateY(100%);
+            transition: transform 0.3s ease-out;
+        }
+        
+        .modal-content.open {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Barra de navegación superior -->
+    <header class="sticky top-0 z-40 bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-mobile-alt text-white text-xl"></i>
+                    </div>
+                    <h1 class="ml-3 text-xl font-bold text-gray-800">TecnoPhone</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="relative p-2 text-gray-600 hover:text-blue-600">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </button>
+                    <button class="p-2 text-gray-600 hover:text-blue-600">
+                        <i class="fas fa-bell text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Barra de búsqueda -->
+            <div class="mt-4 relative">
+                <div class="relative">
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input 
+                        type="text" 
+                        placeholder="Search for phones..." 
+                        class="w-full pl-12 pr-4 py-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
+                        id="search-input"
+                    >
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="container mx-auto px-4 py-6 pb-24">
+        <!-- Banner promocional -->
+        <section class="mb-8">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-6 text-white overflow-hidden relative">
+                <div class="relative z-10">
+                    <span class="badge bg-white text-blue-600 font-bold mb-3">Flash Deals</span>
+                    <h2 class="text-2xl font-bold mb-2">Big Savings on New Releases!</h2>
+                    <p class="text-blue-100 mb-4">Order online and get exclusive discounts</p>
+                    <div class="flex items-center mb-4">
+                        <div class="mr-4">
+                            <p class="text-sm text-blue-100">Shop:</p>
+                            <p class="font-bold">Shop of DAMN</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-blue-100">Order:</p>
+                            <p class="font-bold">Online</p>
+                        </div>
+                    </div>
+                    <button class="bg-white text-blue-600 font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                        Shop Now <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                <div class="absolute right-0 top-0 h-full w-1/3 flex items-center justify-end opacity-80">
+                    <i class="fas fa-mobile-alt text-white text-8xl transform rotate-12"></i>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sección de Flash Deals -->
+        <section class="mb-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Flash Deals</h2>
+                <button class="text-blue-600 font-medium flex items-center">
+                    See All <i class="fas fa-chevron-right ml-1"></i>
+                </button>
+            </div>
+            
+            <!-- Contenedor de productos -->
+            <div class="flash-deals-container overflow-x-auto pb-4">
+                <div class="flex space-x-4" id="products-container">
+                    <!-- Los productos se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sección de categorías -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Categories</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white rounded-xl p-4 text-center product-card">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-mobile-alt text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-medium">Smartphones</h3>
+                </div>
+                <div class="bg-white rounded-xl p-4 text-center product-card">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-tablet-alt text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-medium">Tablets</h3>
+                </div>
+                <div class="bg-white rounded-xl p-4 text-center product-card">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-headphones text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-medium">Accessories</h3>
+                </div>
+                <div class="bg-white rounded-xl p-4 text-center product-card">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-sync-alt text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-medium">Refurbished</h3>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sección de ofertas especiales -->
+        <section>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Special Offers</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-6 text-white overflow-hidden relative">
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold mb-2">Weekend Sale</h3>
+                        <p class="mb-4">Up to 40% off on selected items</p>
+                        <button class="bg-white text-amber-600 font-bold py-2 px-5 rounded-xl hover:bg-amber-50 transition-colors">
+                            Explore Deals
+                        </button>
+                    </div>
+                    <div class="absolute right-0 top-0 h-full w-1/3 flex items-center justify-end opacity-80">
+                        <i class="fas fa-tag text-white text-6xl transform rotate-12"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-green-500 to-teal-500 rounded-2xl p-6 text-white overflow-hidden relative">
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold mb-2">New Arrivals</h3>
+                        <p class="mb-4">Latest smartphones just landed</p>
+                        <button class="bg-white text-green-600 font-bold py-2 px-5 rounded-xl hover:bg-green-50 transition-colors">
+                            Shop Now
+                        </button>
+                    </div>
+                    <div class="absolute right-0 top-0 h-full w-1/3 flex items-center justify-end opacity-80">
+                        <i class="fas fa-box-open text-white text-6xl transform -rotate-12"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Barra de navegación inferior -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-2xl border-t border-gray-200 py-3">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-around items-center">
+                <a href="#" class="nav-item active flex flex-col items-center text-blue-600">
+                    <i class="fas fa-home text-xl mb-1"></i>
+                    <span class="text-xs font-medium">Home</span>
+                </a>
+                <a href="#" class="nav-item flex flex-col items-center text-gray-500 hover:text-blue-600">
+                    <i class="fas fa-th-large text-xl mb-1"></i>
+                    <span class="text-xs font-medium">Categories</span>
+                </a>
+                <a href="#" class="nav-item flex flex-col items-center text-gray-500 hover:text-blue-600 relative">
+                    <i class="fas fa-bolt text-xl mb-1"></i>
+                    <span class="text-xs font-medium">Deals</span>
+                    <span class="absolute -top-1 right-6 w-2 h-2 bg-red-500 rounded-full"></span>
+                </a>
+                <a href="#" class="nav-item flex flex-col items-center text-gray-500 hover:text-blue-600">
+                    <i class="fas fa-user text-xl mb-1"></i>
+                    <span class="text-xs font-medium">Account</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal de producto -->
+    <div id="product-modal" class="fixed inset-0 z-50 flex items-end justify-center modal-overlay hidden">
+        <div class="modal-content bg-white w-full max-w-md rounded-t-3xl shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="sticky top-0 bg-white p-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-xl font-bold">Product Details</h3>
+                <button id="close-modal" class="p-2 text-gray-500 hover:text-gray-800">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="p-6">
+                <!-- Imagen del producto -->
+                <div class="mb-6">
+                    <div id="modal-product-image" class="w-full h-64 bg-gray-200 rounded-2xl flex items-center justify-center">
+                        <i class="fas fa-mobile-alt text-gray-400 text-6xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Información del producto -->
+                <div class="mb-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h2 id="modal-product-name" class="text-2xl font-bold text-gray-800"></h2>
+                        <div>
+                            <span id="modal-product-price" class="text-2xl font-bold text-blue-600"></span>
+                            <span id="modal-product-original-price" class="text-lg text-gray-500 line-through ml-2"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-amber-500 mr-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600">(128 reviews)</span>
+                    </div>
+                    
+                    <p id="modal-product-description" class="text-gray-600 mb-6"></p>
+                    
+                    <!-- Especificaciones -->
+                    <div class="mb-6">
+                        <h4 class="font-bold text-lg mb-3">Specifications</h4>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-gray-100 p-3 rounded-lg">
+                                <p class="text-sm text-gray-500">Display</p>
+                                <p class="font-medium" id="spec-display">6.7" Super Retina XDR</p>
+                            </div>
+                            <div class="bg-gray-100 p-3 rounded-lg">
+                                <p class="text-sm text-gray-500">Storage</p>
+                                <p class="font-medium" id="spec-storage">256GB</p>
+                            </div>
+                            <div class="bg-gray-100 p-3 rounded-lg">
+                                <p class="text-sm text-gray-500">Camera</p>
+                                <p class="font-medium" id="spec-camera">48MP Main</p>
+                            </div>
+                            <div class="bg-gray-100 p-3 rounded-lg">
+                                <p class="text-sm text-gray-500">Battery</p>
+                                <p class="font-medium" id="spec-battery">All day</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Botones de acción -->
+                    <div class="flex space-x-4">
+                        <button id="add-to-cart" class="flex-1 bg-blue-600 text-white font-bold py-3 px-6 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center">
+                            <i class="fas fa-shopping-cart mr-2"></i>
+                            Add to Cart
+                        </button>
+                        <button class="bg-gray-200 text-gray-800 font-bold py-3 px-4 rounded-xl hover:bg-gray-300 transition-colors">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos de productos
+        const products = [
+            {
+                id: 1,
+                name: "iPhone 15 Pro Max",
+                price: "$19.99",
+                originalPrice: "$24.99",
+                description: "The ultimate iPhone with advanced camera system, powerful A17 Pro chip, and all-day battery life.",
+                imageColor: "bg-gradient-to-br from-gray-800 to-gray-900",
+                icon: "fab fa-apple",
+                specs: {
+                    display: "6.7\" Super Retina XDR",
+                    storage: "256GB",
+                    camera: "48MP Main",
+                    battery: "All day battery life"
+                },
+                badge: "new"
+            },
+            {
+                id: 2,
+                name: "Samsung Galaxy Z Fold 4",
+                price: "$19.99",
+                originalPrice: "$29.99",
+                description: "Unfold your world with this innovative foldable smartphone featuring a large flexible display.",
+                imageColor: "bg-gradient-to-br from-blue-800 to-purple-800",
+                icon: "fab fa-android",
+                specs: {
+                    display: "7.6\" Foldable Dynamic AMOLED",
+                    storage: "512GB",
+                    camera: "50MP Wide",
+                    battery: "4400mAh"
+                },
+                badge: "discount"
+            },
+            {
+                id: 3,
+                name: "Google Pixel 8 Pro",
+                price: "$17.99",
+                originalPrice: "$22.99",
+                description: "Powered by Google AI for smarter photos, calls, and more. The best of Google in a phone.",
+                imageColor: "bg-gradient-to-br from-green-600 to-blue-600",
+                icon: "fab fa-google",
+                specs: {
+                    display: "6.7\" OLED",
+                    storage: "128GB",
+                    camera: "50MP Main",
+                    battery: "5050mAh"
+                },
+                badge: "new"
+            },
+            {
+                id: 4,
+                name: "OnePlus 11",
+                price: "$15.99",
+                originalPrice: "$19.99",
+                description: "Fast and smooth performance with Hasselblad camera for professional photography.",
+                imageColor: "bg-gradient-to-br from-red-700 to-gray-900",
+                icon: "fas fa-bolt",
+                specs: {
+                    display: "6.7\" Fluid AMOLED",
+                    storage: "256GB",
+                    camera: "50MP Hasselblad",
+                    battery: "5000mAh"
+                },
+                badge: "discount"
+            }
+        ];
+
+        // Estado de la aplicación
+        const state = {
+            cart: [],
+            currentProduct: null
+        };
+
+        // Elementos del DOM
+        const DOM = {
+            productsContainer: document.getElementById('products-container'),
+            searchInput: document.getElementById('search-input'),
+            cartCount: document.getElementById('cart-count'),
+            productModal: document.getElementById('product-modal'),
+            closeModal: document.getElementById('close-modal'),
+            modalProductName: document.getElementById('modal-product-name'),
+            modalProductPrice: document.getElementById('modal-product-price'),
+            modalProductOriginalPrice: document.getElementById('modal-product-original-price'),
+            modalProductDescription: document.getElementById('modal-product-description'),
+            modalProductImage: document.getElementById('modal-product-image'),
+            addToCartBtn: document.getElementById('add-to-cart'),
+            navItems: document.querySelectorAll('.nav-item')
+        };
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            initApp();
+            setupEventListeners();
+        });
+
+        // Inicializar aplicación
+        function initApp() {
+            renderProducts();
+            updateCartCount();
+            
+            // Marcar elemento activo en navegación
+            DOM.navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    DOM.navItems.forEach(i => {
+                        i.classList.remove('active', 'text-blue-600');
+                        i.classList.add('text-gray-500');
+                    });
+                    
+                    item.classList.remove('text-gray-500');
+                    item.classList.add('active', 'text-blue-600');
+                });
+            });
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Cerrar modal
+            DOM.closeModal.addEventListener('click', closeProductModal);
+            
+            // Cerrar modal al hacer clic fuera
+            DOM.productModal.addEventListener('click', (e) => {
+                if (e.target === DOM.productModal) {
+                    closeProductModal();
+                }
+            });
+            
+            // Agregar al carrito
+            DOM.addToCartBtn.addEventListener('click', addToCart);
+            
+            // Buscar productos
+            DOM.searchInput.addEventListener('input', searchProducts);
+        }
+
+        // Renderizar productos
+        function renderProducts(filteredProducts = products) {
+            DOM.productsContainer.innerHTML = '';
+            
+            filteredProducts.forEach(product => {
+                const productElement = createProductCard(product);
+                DOM.productsContainer.appendChild(productElement);
+            });
+        }
+
+        // Crear tarjeta de producto
+        function createProductCard(product) {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card bg-white rounded-2xl p-4 min-w-[180px] flex-shrink-0';
+            
+            // Badge
+            let badgeHtml = '';
+            if (product.badge === 'discount') {
+                badgeHtml = '<span class="badge badge-discount absolute top-3 left-3">-20%</span>';
+            } else if (product.badge === 'new') {
+                badgeHtml = '<span class="badge badge-new absolute top-3 left-3">New</span>';
+            }
+            
+            productCard.innerHTML = `
+                <div class="relative">
+                    ${badgeHtml}
+                    <div class="${product.imageColor} h-40 rounded-xl flex items-center justify-center mb-4">
+                        <i class="${product.icon} text-white text-5xl"></i>
+                    </div>
+                </div>
+                <h3 class="font-bold text-lg mb-1">${product.name}</h3>
+                <div class="flex items-center mb-2">
+                    <div class="flex text-amber-500 text-sm">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="text-gray-500 text-sm ml-2">4.5</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-xl font-bold text-blue-600">${product.price}</span>
+                        <span class="text-gray-500 line-through ml-2">${product.originalPrice}</span>
+                    </div>
+                    <button class="add-to-cart-btn bg-blue-100 text-blue-600 w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors" data-id="${product.id}">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            `;
+            
+            // Event listeners para la tarjeta
+            const addToCartBtn = productCard.querySelector('.add-to-cart-btn');
+            addToCartBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                addProductToCart(product.id);
+            });
+            
+            // Abrir modal al hacer clic en la tarjeta
+            productCard.addEventListener('click', () => {
+                openProductModal(product);
+            });
+            
+            return productCard;
+        }
+
+        // Abrir modal de producto
+        function openProductModal(product) {
+            state.currentProduct = product;
+            
+            // Actualizar información del modal
+            DOM.modalProductName.textContent = product.name;
+            DOM.modalProductPrice.textContent = product.price;
+            DOM.modalProductOriginalPrice.textContent = product.originalPrice;
+            DOM.modalProductDescription.textContent = product.description;
+            
+            // Actualizar imagen
+            DOM.modalProductImage.className = `w-full h-64 ${product.imageColor} rounded-2xl flex items-center justify-center`;
+            DOM.modalProductImage.innerHTML = `<i class="${product.icon} text-white text-6xl"></i>`;
+            
+            // Actualizar especificaciones
+            document.getElementById('spec-display').textContent = product.specs.display;
+            document.getElementById('spec-storage').textContent = product.specs.storage;
+            document.getElementById('spec-camera').textContent = product.specs.camera;
+            document.getElementById('spec-battery').textContent = product.specs.battery;
+            
+            // Mostrar modal
+            DOM.productModal.classList.remove('hidden');
+            setTimeout(() => {
+                document.querySelector('.modal-content').classList.add('open');
+            }, 10);
+        }
+
+        // Cerrar modal de producto
+        function closeProductModal() {
+            document.querySelector('.modal-content').classList.remove('open');
+            setTimeout(() => {
+                DOM.productModal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Agregar producto al carrito
+        function addProductToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            state.cart.push(product);
+            updateCartCount();
+            showNotification(`${product.name} added to cart`);
+        }
+
+        // Función para agregar al carrito desde el modal
+        function addToCart() {
+            if (state.currentProduct) {
+                state.cart.push(state.currentProduct);
+                updateCartCount();
+                showNotification(`${state.currentProduct.name} added to cart`);
+                closeProductModal();
+            }
+        }
+
+        // Actualizar contador del carrito
+        function updateCartCount() {
+            DOM.cartCount.textContent = state.cart.length;
+            
+            // Animación cuando se agrega un producto
+            if (state.cart.length > 0) {
+                DOM.cartCount.classList.add('pulse-subtle');
+                setTimeout(() => {
+                    DOM.cartCount.classList.remove('pulse-subtle');
+                }, 1000);
+            }
+        }
+
+        // Buscar productos
+        function searchProducts() {
+            const searchTerm = DOM.searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                renderProducts();
+                return;
+            }
+            
+            const filteredProducts = products.filter(product => 
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.description.toLowerCase().includes(searchTerm)
+            );
+            
+            renderProducts(filteredProducts);
+        }
+
+        // Mostrar notificación
+        function showNotification(message) {
+            // Crear elemento de notificación
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white py-3 px-4 rounded-xl shadow-lg z-50 flex items-center transform translate-x-full transition-transform duration-300';
+            notification.innerHTML = `
+                <i class="fas fa-check-circle mr-3 text-xl"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Mostrar notificación
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 10);
+            
+            // Ocultar y eliminar después de 3 segundos
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
