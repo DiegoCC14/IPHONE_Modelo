@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Fundas | Veylor (responsive)</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    body{ font-family:Inter,system-ui,sans-serif; background:#f4f4f4 }
+    .container-max{ max-width:1440px }
+    .card{ transition:transform .18s ease, box-shadow .18s ease }
+    .card img{ transition:transform .28s ease }
+    @media (hover:hover){
+      .card:hover{ transform:translateY(-3px); box-shadow:0 16px 40px rgba(0,0,0,.12) }
+      .card:hover img{ transform:scale(1.045) }
+    }
+    .card:active{ transform:scale(.985) }
+    .badge{ border-radius:8px }
+    .no-scrollbar::-webkit-scrollbar{ display:none; }
+    .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
+  </style>
+</head>
+
+<body class="text-neutral-900">
+
+<!-- NAVBAR -->
+<header class="bg-black text-white sticky top-0 z-40">
+  <div class="container-max mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="h-14 sm:h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl sm:text-3xl font-black tracking-tight">TecPhone</span>
+      </div>
+
+      <!-- search (sm+) -->
+      <div class="hidden sm:flex flex-1 justify-center">
+        <div class="w-full max-w-xl border border-white/30 rounded-md overflow-hidden flex">
+          <input id="q"
+            class="w-full bg-transparent px-4 py-2 text-sm placeholder-white/60 outline-none"
+            placeholder="¿Qué estás buscando?">
+          <button id="searchBtn" class="px-3 hover:bg-white/10" aria-label="Buscar">🔍</button>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button class="hover:opacity-80" aria-label="Cuenta">👤</button>
+        <button class="relative hover:opacity-80" aria-label="Carrito">
+          🛒
+          <span class="absolute -top-2 -right-2 w-5 h-5 bg-white text-black text-[11px] rounded-full grid place-items-center">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- mobile search -->
+    <div class="sm:hidden pb-3">
+      <div class="border border-white/30 rounded-md overflow-hidden flex">
+        <input id="q_m"
+          class="w-full bg-transparent px-4 py-2 text-sm placeholder-white/60 outline-none"
+          placeholder="¿Qué estás buscando?">
+        <button id="searchBtnM" class="px-3 hover:bg-white/10" aria-label="Buscar">🔍</button>
+      </div>
+    </div>
+
+    <!-- categories (md-) in scroll row; (lg+) centered like desktop -->
+    <nav class="pb-3">
+      <ul class="flex items-center gap-6 text-[12px] sm:text-sm tracking-wide whitespace-nowrap overflow-x-auto no-scrollbar
+                 lg:justify-center">
+        <li><a class="opacity-80 hover:opacity-100" href="#">INICIO</a></li>
+        <li><a class="opacity-80 hover:opacity-100" href="#">VIDRIOS TEMPLADOS</a></li>
+        <li><a class="font-semibold" href="#">FUNDAS</a></li>
+        <li><a class="opacity-80 hover:opacity-100" href="#">CABLES Y CARGADORES</a></li>
+        <li><a class="opacity-80 hover:opacity-100" href="#">COMBOS</a></li>
+        <li><a class="opacity-80 hover:opacity-100" href="#">DEVOLUCIONES</a></li>
+        <li><a class="opacity-80 hover:opacity-100" href="#">CONTACTO</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE -->
+<main class="container-max mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-24">
+
+  <!-- Breadcrumb + Title Row (sm+) -->
+  <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+    <div>
+      <div class="text-xs sm:text-sm text-neutral-500">
+        Inicio · <span class="text-neutral-800">Fundas</span>
+      </div>
+      <h1 class="mt-1 text-4xl sm:text-5xl font-black tracking-tight">FUNDAS</h1>
+    </div>
+
+    <div class="flex items-center justify-between sm:justify-end gap-3">
+      <!-- Filter button shown on mobile & small/medium screens; hidden when sidebar visible (md+) -->
+      <button id="openFiltersMobile"
+        class="md:hidden flex items-center gap-2 border border-black px-4 py-2 text-xs tracking-widest">
+        FILTRAR
+      </button>
+
+      <!-- Toggle sidebar on md (optional) -->
+      <button id="toggleSidebar"
+        class="hidden md:flex lg:hidden items-center gap-2 border border-black px-4 py-2 text-xs tracking-widest">
+        FILTROS
+      </button>
+
+      <select id="sort"
+        class="bg-white border border-neutral-300 px-3 py-2 text-xs font-semibold tracking-widest">
+        <option value="featured">DESTACADO</option>
+        <option value="price_asc">PRECIO ↑</option>
+        <option value="price_desc">PRECIO ↓</option>
+        <option value="az">A → Z</option>
+        <option value="za">Z → A</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- LAYOUT: md+ gets sidebar + grid; mobile stays grid full -->
+  <div class="mt-6 grid grid-cols-12 gap-8 lg:gap-12">
+    <!-- Sidebar (md+) -->
+    <aside id="sidebar"
+      class="hidden md:block md:col-span-4 lg:col-span-3">
+      <div class="bg-transparent">
+        <h3 class="text-lg font-semibold">Filtrar por</h3>
+
+        <div class="mt-5">
+          <div class="text-xs font-extrabold tracking-widest text-neutral-600">COLOR</div>
+
+          <div id="filtersDesk" class="mt-4 space-y-3 text-sm"></div>
+
+          <button id="btnAllDesk"
+            class="mt-6 border border-black px-6 py-2 text-xs tracking-widest hover:bg-black hover:text-white transition">
+            VER TODOS
+          </button>
+        </div>
+
+        <div class="mt-10 border-t border-neutral-300"></div>
+      </div>
+    </aside>
+
+    <!-- Grid -->
+    <section class="col-span-12 md:col-span-8 lg:col-span-9">
+      <div id="grid"
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-x-4 sm:gap-x-6 lg:gap-x-10 gap-y-8 sm:gap-y-12">
+      </div>
+
+      <div id="empty"
+        class="hidden mt-10 bg-white border border-neutral-300 rounded-md p-6 text-center">
+        <div class="text-lg font-semibold">No hay productos para esos filtros</div>
+        <p class="text-sm text-neutral-600 mt-1">Probá “Ver todos” o cambiá el color.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- FILTERS BOTTOM SHEET (mobile) -->
+<div id="filtersSheet" class="fixed inset-0 bg-black/40 z-50 hidden">
+  <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl p-5">
+    <div class="flex justify-between items-center mb-4">
+      <span class="font-semibold">Filtrar por</span>
+      <button id="closeFiltersMobile" class="text-xl leading-none">✕</button>
+    </div>
+
+    <div class="mb-5">
+      <div class="text-xs font-extrabold tracking-widest text-neutral-600 mb-3">COLOR</div>
+      <div id="filtersMobile" class="space-y-3 text-sm"></div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+      <button id="btnAllMobile"
+        class="border border-black py-3 text-sm tracking-widest">
+        VER TODOS
+      </button>
+      <button id="applyMobile"
+        class="bg-black text-white py-3 text-sm tracking-widest">
+        VER RESULTADOS
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- WhatsApp -->
+<a href="#"
+   class="fixed right-4 sm:right-6 bottom-4 sm:bottom-6 w-14 h-14 bg-green-500 rounded-full grid place-items-center shadow-lg hover:scale-105 transition"
+   aria-label="WhatsApp">
+  🟢
+</a>
+
+<script>
+  /********************
+   * Data (reemplazar por tu backend)
+   ********************/
+  const products = [
+    { id:"p1", name:"Funda Silicone Case", price:18499, color:"Naranja", featured:1,
+      img:"https://images.unsplash.com/photo-1609250291996-fdebe6020a8f?auto=format&fit=crop&w=900&q=80" },
+    { id:"p2", name:"Funda Acrílica", price:17999, color:"Negro", featured:2,
+      img:"https://images.unsplash.com/photo-1585060544812-6b45742d762f?auto=format&fit=crop&w=900&q=80" },
+    { id:"p3", name:"Funda MagSafe Clásica Transparente", price:17499, color:"Verde", featured:3,
+      img:"https://images.unsplash.com/photo-1603899122634-f086ca5f5ddd?auto=format&fit=crop&w=900&q=80" },
+    { id:"p4", name:"Funda MagSafe Matte", price:18999, color:"Fucsia", featured:4,
+      img:"https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=900&q=80" },
+
+    { id:"p5", name:"Funda Crystal Clear", price:16499, color:"Turquesa", featured:5,
+      img:"https://images.unsplash.com/photo-1616348436168-1b8b5d7b2ff4?auto=format&fit=crop&w=900&q=80" },
+    { id:"p6", name:"Funda Soft Touch", price:19499, color:"Rojo", featured:6,
+      img:"https://images.unsplash.com/photo-1557182664-3a01d25d5cfa?auto=format&fit=crop&w=900&q=80" },
+    { id:"p7", name:"Funda Pastel", price:16999, color:"Beige", featured:7,
+      img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=900&q=80" },
+    { id:"p8", name:"Funda Matte Pro", price:20999, color:"Magenta", featured:8,
+      img:"https://images.unsplash.com/photo-1512499617640-c2f999fe2d36?auto=format&fit=crop&w=900&q=80" },
+  ];
+
+  const colorPalette = {
+    "Negro":"#111111", "Fucsia":"#ff2bd6", "Rojo":"#ff1f1f", "Naranja":"#ff9a00",
+    "Magenta":"#ff3df0", "Beige":"#e8e1c8", "Verde":"#35d24a", "Turquesa":"#45e0d2"
+  };
+
+  /********************
+   * State
+   ********************/
+  const state = {
+    selectedColors: new Set(),
+    q: "",
+    sort: "featured"
+  };
+
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+
+  const money = (n) => n.toLocaleString("es-AR", {
+    style: "currency", currency: "ARS",
+    minimumFractionDigits: 2, maximumFractionDigits: 2
+  });
+
+  function countsByColor(list){
+    const m = new Map();
+    for (const p of list) m.set(p.color, (m.get(p.color)||0)+1);
+    return m;
+  }
+
+  function applyFilters(list){
+    let out = [...list];
+
+    // search
+    const q = state.q.trim().toLowerCase();
+    if(q) out = out.filter(p => p.name.toLowerCase().includes(q));
+
+    // colors
+    if(state.selectedColors.size){
+      out = out.filter(p => state.selectedColors.has(p.color));
+    }
+
+    // sort
+    out.sort((a,b) => {
+      switch(state.sort){
+        case "price_asc": return a.price - b.price;
+        case "price_desc": return b.price - a.price;
+        case "az": return a.name.localeCompare(b.name);
+        case "za": return b.name.localeCompare(a.name);
+        default: return a.featured - b.featured;
+      }
+    });
+
+    return out;
+  }
+
+  function productCard(p){
+    return `
+      <article class="card">
+        <div class="relative overflow-hidden rounded-2xl bg-white">
+          <img class="w-full aspect-[4/5] object-cover" src="${p.img}" alt="${p.name}" loading="lazy"/>
+          <span class="absolute left-2 bottom-2 sm:left-3 sm:bottom-3 bg-white text-[11px] px-2 py-1 badge shadow">
+            2X1
+          </span>
+        </div>
+        <div class="mt-2 sm:mt-3">
+          <div class="text-sm font-semibold leading-tight">${p.name}</div>
+          <div class="text-sm font-black">${money(p.price)}</div>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderGrid(){
+    const out = applyFilters(products);
+    $("#grid").innerHTML = out.map(productCard).join("");
+    $("#empty").classList.toggle("hidden", out.length > 0);
+  }
+
+  function renderFilters(targetId, mode){
+    const root = $("#" + targetId);
+    const counts = countsByColor(products);
+    const order = ["Negro","Fucsia","Rojo","Naranja","Magenta","Beige","Verde","Turquesa"];
+
+    root.innerHTML = order
+      .filter(c => counts.has(c))
+      .map(c => {
+        const dot = colorPalette[c] || "#999";
+        const checked = state.selectedColors.has(c) ? "checked" : "";
+        const inputId = `${mode}_${c.replace(/\s+/g,'_')}`;
+        return `
+          <label for="${inputId}" class="flex items-center justify-between gap-3 cursor-pointer select-none">
+            <span class="flex items-center gap-3">
+              <input id="${inputId}" type="checkbox" data-color="${c}" ${checked}
+                     class="h-4 w-4 accent-black">
+              <span>${c} <span class="text-neutral-400">(${counts.get(c)})</span></span>
+            </span>
+            <span class="w-3 h-3 rounded-full" style="background:${dot}"></span>
+          </label>
+        `;
+      }).join("");
+
+    // bind
+    $$(`#${targetId} input[type="checkbox"][data-color]`).forEach(cb => {
+      cb.addEventListener("change", () => {
+        const color = cb.getAttribute("data-color");
+        if(cb.checked) state.selectedColors.add(color);
+        else state.selectedColors.delete(color);
+
+        // sync both UIs by re-rendering both
+        renderAllFilters();
+        renderGrid();
+      });
+    });
+  }
+
+  function renderAllFilters(){
+    renderFilters("filtersDesk", "d");
+    renderFilters("filtersMobile", "m");
+  }
+
+  function clearAll(){
+    state.selectedColors.clear();
+    state.q = "";
+    state.sort = "featured";
+    $("#sort").value = "featured";
+    renderAllFilters();
+    renderGrid();
+  }
+
+  // Search wiring (desktop + mobile)
+  function applySearch(val){
+    state.q = (val || "");
+    renderGrid();
+  }
+  $("#searchBtn")?.addEventListener("click", () => applySearch($("#q").value));
+  $("#q")?.addEventListener("keydown", (e) => { if(e.key==="Enter") applySearch($("#q").value); });
+
+  $("#searchBtnM")?.addEventListener("click", () => applySearch($("#q_m").value));
+  $("#q_m")?.addEventListener("keydown", (e) => { if(e.key==="Enter") applySearch($("#q_m").value); });
+
+  // Sort
+  $("#sort").addEventListener("change", (e) => {
+    state.sort = e.target.value;
+    renderGrid();
+  });
+
+  // Buttons: "Ver todos"
+  $("#btnAllDesk").addEventListener("click", clearAll);
+  $("#btnAllMobile").addEventListener("click", clearAll);
+
+  // Mobile sheet open/close
+  const sheet = $("#filtersSheet");
+  const openFiltersMobile = () => { sheet.classList.remove("hidden"); document.body.classList.add("overflow-hidden"); };
+  const closeFiltersMobile = () => { sheet.classList.add("hidden"); document.body.classList.remove("overflow-hidden"); };
+
+  $("#openFiltersMobile").addEventListener("click", openFiltersMobile);
+  $("#closeFiltersMobile").addEventListener("click", closeFiltersMobile);
+  $("#applyMobile").addEventListener("click", closeFiltersMobile);
+  sheet.addEventListener("click", (e) => { if(e.target === sheet) closeFiltersMobile(); });
+
+  // Sidebar toggle on md (optional)
+  $("#toggleSidebar").addEventListener("click", () => {
+    $("#sidebar").classList.toggle("hidden");
+  });
+
+  // Init
+  renderAllFilters();
+  renderGrid();
+</script>
+
+</body>
+</html>
